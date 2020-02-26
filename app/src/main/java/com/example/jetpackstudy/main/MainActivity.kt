@@ -21,22 +21,26 @@ class MainActivity : AppCompatActivity() {
         val fragment2 = ListFragment()
         val fragment3 = SettingFragment()
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment1)
+        supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment1).commitAllowingStateLoss()
 
         binding.mainBottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_search -> {
+                    supportActionBar?.title = "검색"
                     supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment1)
+                        .commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_list-> {
+                R.id.navigation_list -> {
                     supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment2)
+                        .commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_setting-> {
+                R.id.navigation_setting -> {
                     supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment3)
+                        .commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
 
