@@ -66,6 +66,7 @@ class ListFragment : Fragment() {
         when(item.itemId) {
             android.R.id.home -> {
                 binding.listRcvOwner.adapter = ownerAdapter
+                binding.listRcvOwner.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
                 menuDeleteAll.isVisible = true
                 (activity as MainActivity).supportActionBar?.apply {
                     title = "List"
@@ -93,6 +94,7 @@ class ListFragment : Fragment() {
         super.onPause()
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         menuDeleteAll.isVisible = true
+        binding.listRcvOwner.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
     private fun onClickOwner(owner: String) {
@@ -108,6 +110,7 @@ class ListFragment : Fragment() {
         }
 
         binding.listRcvOwner.adapter = repoAdapter
+        binding.listRcvOwner.removeItemDecorationAt(0)
     }
 
     private fun onLongClickOwner(owner: String) {
