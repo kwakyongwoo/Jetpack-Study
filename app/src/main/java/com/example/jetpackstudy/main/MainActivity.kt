@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.jetpackstudy.R
 import com.example.jetpackstudy.databinding.ActivityMainBinding
-import com.example.jetpackstudy.main.list.ListFragment
-import com.example.jetpackstudy.main.search.SearchFragment
+import com.example.jetpackstudy.main.list.ui.ListFragment
+import com.example.jetpackstudy.main.search.ui.SearchFragment
 import com.example.jetpackstudy.main.setting.SettingFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,24 +21,27 @@ class MainActivity : AppCompatActivity() {
         val fragment2 = ListFragment()
         val fragment3 = SettingFragment()
 
+        supportActionBar?.title = "Search"
         supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment1).commitAllowingStateLoss()
 
         binding.mainBottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_search -> {
-                    supportActionBar?.title = "검색"
+                    supportActionBar?.title = "Search"
                     supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment1)
                         .commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.navigation_list -> {
+                    supportActionBar?.title = "List"
                     supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment2)
                         .commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.navigation_setting -> {
+                    supportActionBar?.title = "Setting"
                     supportFragmentManager.beginTransaction().replace(R.id.main_frameLayout, fragment3)
                         .commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true

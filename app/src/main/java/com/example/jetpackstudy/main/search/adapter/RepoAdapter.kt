@@ -7,19 +7,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jetpackstudy.R
-import com.example.jetpackstudy.main.search.viewholder.SearchViewHolder
+import com.example.jetpackstudy.main.search.viewholder.RepoViewHolder
 import com.example.jetpackstudy.repository.data.GitRepo
 
-class SearchAdapter: RecyclerView.Adapter<SearchViewHolder>() {
+class RepoAdapter: RecyclerView.Adapter<RepoViewHolder>() {
     private var list = listOf<GitRepo>()
+
+    fun getList(): List<GitRepo> {
+        return list
+    }
 
     fun getAll(list: List<GitRepo>) {
         this.list = list
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
-        val viewHolder = SearchViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_repo, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
+        val viewHolder = RepoViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_repo, parent, false))
 
         viewHolder.itemView.setOnClickListener {
             parent.context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(list[viewHolder.adapterPosition].url)))
@@ -32,7 +36,7 @@ class SearchAdapter: RecyclerView.Adapter<SearchViewHolder>() {
         return list.size
     }
 
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         holder.onBind(list[position])
     }
 }
