@@ -90,8 +90,8 @@ class ListFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDetach() {
+        super.onDetach()
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         menuDeleteAll.isVisible = true
         binding.listRcvOwner.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
