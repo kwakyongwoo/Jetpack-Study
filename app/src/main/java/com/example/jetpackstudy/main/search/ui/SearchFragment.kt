@@ -3,6 +3,7 @@ package com.example.jetpackstudy.main.search.ui
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -48,18 +49,31 @@ class SearchFragment: Fragment() {
 
         binding.apply {
             viewmodel = vm
-            search_rcv_info.apply {
+            searchRcvInfo.apply {
                 this.adapter = adapter
                 layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             }
 
-            search_btn_search.setOnClickListener {
-                val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view!!.windowToken, 0)
-                vm.getAllReposApi().observe(this@SearchFragment, Observer {
-                    list = it
-                    adapter.getAll(it)
-                })
+            searchEtOwner.apply {
+                setOnClickListener {
+                    setText("")
+                }
+                setOnEditorActionListener { v, actionId, event ->
+                    when(actionId) {
+                        EditorInfo.IME_ACTION_SEARCH -> {
+                            val imm = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+                            vm.getAllReposApi().observe(this@SearchFragment, Observer {
+                                list = it
+                                adapter.getAll(it)
+                            })
+                            return@setOnEditorActionListener true
+                        }
+                        else -> {
+                            return@setOnEditorActionListener false
+                        }
+                    }
+                }
             }
         }
     }
